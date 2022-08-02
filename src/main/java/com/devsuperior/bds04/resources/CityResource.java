@@ -3,6 +3,8 @@ package com.devsuperior.bds04.resources;
 import java.net.URI;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,7 +31,7 @@ public class CityResource {
 	}
 	
 	@PostMapping
-	public ResponseEntity<CityDTO> save(@RequestBody CityDTO dto){
+	public ResponseEntity<CityDTO> save(@Valid @RequestBody CityDTO dto){
 		CityDTO entity = service.save(dto);
 		URI uri =  ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}")
 				.buildAndExpand(entity.getId()).toUri();

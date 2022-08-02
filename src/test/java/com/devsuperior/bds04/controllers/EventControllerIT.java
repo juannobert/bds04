@@ -68,7 +68,7 @@ public class EventControllerIT {
 	public void insertShouldInsertResourceWhenClientLoggedAndCorrectData() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, clientUsername, clientPassword);
-		LocalDate nextMonth = LocalDate.now().plusMonths(1L);
+		LocalDate nextMonth = LocalDate.of(2022, 9, 2);
 		
 		EventDTO dto = new EventDTO(null, "Expo XP", nextMonth, "https://expoxp.com.br", 1L);
 		String jsonBody = objectMapper.writeValueAsString(dto);
@@ -92,7 +92,7 @@ public class EventControllerIT {
 	public void insertShouldInsertResourceWhenAdminLoggedAndCorrectData() throws Exception {
 
 		String accessToken = tokenUtil.obtainAccessToken(mockMvc, adminUsername, adminPassword);
-		LocalDate nextMonth = LocalDate.now().plusMonths(1L);
+		LocalDate nextMonth = LocalDate.of(2022, 9, 2);
 		
 		EventDTO dto = new EventDTO(null, "Expo XP", nextMonth, "https://expoxp.com.br", 1L);
 		String jsonBody = objectMapper.writeValueAsString(dto);
@@ -129,8 +129,8 @@ public class EventControllerIT {
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isUnprocessableEntity());
-		result.andExpect(jsonPath("$.errors[0].fieldName").value("name"));
-		result.andExpect(jsonPath("$.errors[0].message").value("Campo requerido"));
+		result.andExpect(jsonPath("$.fieldMessages[0].fieldName").value("name"));
+		result.andExpect(jsonPath("$.fieldMessages[0].fieldMessage").value("Campo requerido"));
 	}
 
 	@Test
@@ -150,8 +150,8 @@ public class EventControllerIT {
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isUnprocessableEntity());
-		result.andExpect(jsonPath("$.errors[0].fieldName").value("date"));
-		result.andExpect(jsonPath("$.errors[0].message").value("A data do evento não pode ser passada"));
+		result.andExpect(jsonPath("$.fieldMessages[0].fieldName").value("date"));
+		result.andExpect(jsonPath("$.fieldMessages[0].fieldMessage").value("A data do evento não pode ser passada"));
 	}
 
 	@Test
@@ -171,8 +171,8 @@ public class EventControllerIT {
 					.accept(MediaType.APPLICATION_JSON));
 		
 		result.andExpect(status().isUnprocessableEntity());
-		result.andExpect(jsonPath("$.errors[0].fieldName").value("cityId"));
-		result.andExpect(jsonPath("$.errors[0].message").value("Campo requerido"));
+		result.andExpect(jsonPath("$.fieldMessages[0].fieldName").value("cityId"));
+		result.andExpect(jsonPath("$.fieldMessages[0].fieldMessage").value("Campo requerido"));
 	}
 
 	@Test
