@@ -10,8 +10,7 @@ public class CityDTO implements Serializable {
 	private Long id;
 	private String name;
 	
-	public CityDTO() {
-	}
+	public CityDTO() {  }
 
 	public CityDTO(Long id, String name) {
 		this.id = id;
